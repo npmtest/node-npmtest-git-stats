@@ -1,0 +1,2261 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for node-npmtest-git-stats/node_modules/git-stats/lib/index.js</title>
+    <meta charset="utf-8">
+    <style>
+        body, html {
+            margin:0; padding: 0;
+        }
+        body {
+            font-family: Arial, Helvetica;
+            font-size: 10pt;
+        }
+        div.header, div.footer {
+            background: #eee;
+            padding: 1em;
+        }
+        div.header {
+            height: 160px;
+            padding: 0 1em 0 1em;
+            z-index: 100;
+            position: fixed;
+            top: 0;
+            border-bottom: 1px solid #666;
+            width: 100%;
+        }
+        div.footer {
+            border-top: 1px solid #666;
+        }
+        div.body {
+            margin-top: 170px;
+        }
+        div.meta {
+            font-size: 90%;
+            text-align: center;
+        }
+        h1, h2, h3 {
+            font-weight: normal;
+        }
+        h1 {
+            font-size: 12pt;
+        }
+        h2 {
+            font-size: 10pt;
+        }
+        pre {
+            font-family: Menlo, Monaco, Consolas, Courier New, monospace;
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
+            tab-size: 2;
+        }
+
+        div.path { font-size: 110%; }
+        div.path a:link, div.path a:visited { color: #000; }
+        table.coverage { border-collapse: collapse; margin:0; padding: 0 }
+
+        table.coverage td {
+            margin: 0;
+            padding: 0;
+            color: #111;
+            vertical-align: top;
+        }
+        table.coverage td.line-count {
+            width: 50px;
+            text-align: right;
+            padding-right: 5px;
+        }
+        table.coverage td.line-coverage {
+            color: #777 !important;
+            text-align: right;
+            border-left: 1px solid #666;
+            border-right: 1px solid #666;
+        }
+
+        table.coverage td.text {
+        }
+
+        table.coverage td span.cline-any {
+            display: inline-block;
+            padding: 0 5px;
+            width: 40px;
+        }
+        table.coverage td span.cline-neutral {
+            background: #eee;
+        }
+        table.coverage td span.cline-yes {
+            background: #b5d592;
+            color: #999;
+        }
+        table.coverage td span.cline-no {
+            background: #fc8c84;
+        }
+
+        .cstat-yes { color: #111; }
+        .cstat-no { background: #fc8c84; color: #111; }
+        .fstat-no { background: #ffc520; color: #111 !important; }
+        .cbranch-no { background:  yellow !important; color: #111; }
+
+        .cstat-skip { background: #ddd; color: #111; }
+        .fstat-skip { background: #ddd; color: #111 !important; }
+        .cbranch-skip { background: #ddd !important; color: #111; }
+
+        .missing-if-branch {
+            display: inline-block;
+            margin-right: 10px;
+            position: relative;
+            padding: 0 4px;
+            background: black;
+            color: yellow;
+        }
+
+        .skip-if-branch {
+            display: none;
+            margin-right: 10px;
+            position: relative;
+            padding: 0 4px;
+            background: #ccc;
+            color: white;
+        }
+
+        .missing-if-branch .typ, .skip-if-branch .typ {
+            color: inherit !important;
+        }
+
+        .entity, .metric { font-weight: bold; }
+        .metric { display: inline-block; border: 1px solid #333; padding: 0.3em; background: white; }
+        .metric small { font-size: 80%; font-weight: normal; color: #666; }
+
+        div.coverage-summary table { border-collapse: collapse; margin: 3em; font-size: 110%; }
+        div.coverage-summary td, div.coverage-summary table  th { margin: 0; padding: 0.25em 1em; border-top: 1px solid #666; border-bottom: 1px solid #666; }
+        div.coverage-summary th { text-align: left; border: 1px solid #666; background: #eee; font-weight: normal; }
+        div.coverage-summary th.file { border-right: none !important; }
+        div.coverage-summary th.pic { border-left: none !important; text-align: right; }
+        div.coverage-summary th.pct { border-right: none !important; }
+        div.coverage-summary th.abs { border-left: none !important; text-align: right; }
+        div.coverage-summary td.pct { text-align: right; border-left: 1px solid #666; }
+        div.coverage-summary td.abs { text-align: right; font-size: 90%; color: #444; border-right: 1px solid #666; }
+        div.coverage-summary td.file { text-align: right; border-left: 1px solid #666; white-space: nowrap;  }
+        div.coverage-summary td.pic { min-width: 120px !important;  }
+        div.coverage-summary a:link { color: #000; }
+        div.coverage-summary a:visited { color: #333; }
+        div.coverage-summary tfoot td { border-top: 1px solid #666; }
+
+        div.coverage-summary .yui3-datatable-sort-indicator, div.coverage-summary .dummy-sort-indicator {
+            height: 10px;
+            width: 7px;
+            display: inline-block;
+            margin-left: 0.5em;
+        }
+        div.coverage-summary .yui3-datatable-sort-indicator {
+            background: no-repeat scroll 0 0 transparent;
+        }
+        div.coverage-summary .yui3-datatable-sorted .yui3-datatable-sort-indicator {
+            background-position: 0 -20px;
+        }
+        div.coverage-summary .yui3-datatable-sorted-desc .yui3-datatable-sort-indicator {
+            background-position: 0 -10px;
+        }
+
+        .high { background: #b5d592 !important; }
+        .medium { background: #ffe87c !important; }
+        .low { background: #fc8c84 !important; }
+
+        span.cover-fill, span.cover-empty {
+            display:inline-block;
+            border:1px solid #444;
+            background: white;
+            height: 12px;
+        }
+        span.cover-fill {
+            background: #ccc;
+            border-right: 1px solid #444;
+        }
+        span.cover-empty {
+            background: white;
+            border-left: none;
+        }
+        span.cover-full {
+            border-right: none !important;
+        }
+        pre.prettyprint {
+            border: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        .com { color: #999 !important; }
+        .ignore-none { color: #999; font-weight: normal; }
+
+    </style>
+</head>
+<body>
+<div class="header low">
+    <h1 style="font-weight: bold;">
+        <a href="https://github.com/npmtest/node-npmtest-git-stats">npmtest-git-stats (v0.0.1)</a>
+    </h1>
+    <h1>Code coverage report for <span class="entity">node-npmtest-git-stats/node_modules/git-stats/lib/index.js</span></h1>
+    <h2>
+        
+        Statements: <span class="metric">9.55% <small>(21 / 220)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Branches: <span class="metric">0% <small>(0 / 122)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Functions: <span class="metric">0% <small>(0 / 38)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Lines: <span class="metric">9.63% <small>(21 / 218)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../../../index.html">All files</a> &#187; <a href="index.html">node-npmtest-git-stats/node_modules/git-stats/lib/</a> &#187; index.js</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509
+510
+511
+512
+513
+514
+515
+516
+517
+518
+519
+520
+521
+522
+523
+524
+525
+526
+527
+528
+529
+530
+531
+532
+533
+534
+535
+536
+537
+538
+539
+540
+541
+542
+543
+544
+545
+546
+547
+548
+549
+550
+551
+552
+553
+554
+555
+556
+557
+558
+559
+560
+561
+562
+563
+564
+565
+566
+567
+568
+569
+570
+571
+572
+573
+574
+575
+576
+577
+578
+579
+580
+581
+582
+583
+584
+585
+586
+587
+588
+589
+590
+591
+592
+593
+594
+595
+596
+597
+598
+599
+600
+601
+602
+603
+604
+605
+606
+607
+608
+609
+610
+611
+612
+613
+614
+615
+616
+617
+618
+619
+620
+621
+622
+623
+624
+625
+626
+627
+628
+629
+630
+631
+632
+633
+634
+635
+636
+637
+638
+639
+640
+641
+642
+643
+644
+645
+646
+647
+648
+649
+650
+651
+652
+653
+654
+655
+656
+657
+658
+659
+660
+661
+662
+663
+664
+665
+666
+667
+668
+669
+670
+671
+672
+673
+674
+675
+676
+677
+678
+679
+680</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">"use strict";
+&nbsp;
+var Ul = require("ul"),
+    Abs = require("abs"),
+    ReadJson = require("r-json"),
+    WriteJson = require("w-json"),
+    Moment = require("moment"),
+    Gry = require("gry"),
+    IsThere = require("is-there"),
+    CliPie = require("cli-pie"),
+    CliGhCal = require("cli-gh-cal"),
+    GitLogParser = require("gitlog-parser").parse,
+    ChildProcess = require("child_process"),
+    Deffy = require("deffy"),
+    Typpy = require("typpy"),
+    Exec = ChildProcess.exec,
+    Spawn = ChildProcess.spawn,
+    IterateObject = require("iterate-object");
+&nbsp;
+// Constants
+var DATE_FORMAT = "MMM D, YYYY",
+    DEFAULT_STORE = Abs("~/.git-stats"),
+    DEFAULT_DATA = {
+    commits: {}
+},
+    CONFIG_PATH = Abs("~/.git-stats-config.js");
+&nbsp;
+/**
+ * GitStats
+ *
+ * @name GitStats
+ * @function
+ * @param {String} dataPath Path to the data file.
+ * @return {GitStats} The `GitStats` instance.
+ */
+<span class="fstat-no" title="function not covered" >function GitStats(dataPath) {</span>
+<span class="cstat-no" title="statement not covered" >    this.path = Abs(Deffy(dataPath, DEFAULT_STORE));</span>
+<span class="cstat-no" title="statement not covered" >    this.config = {};</span>
+}
+&nbsp;
+// Defaults
+GitStats.CONFIG_PATH = CONFIG_PATH;
+GitStats.DEFAULT_CONFIG = {
+    // Dark theme by default
+    theme: "DARK"
+&nbsp;
+    // This defaults in library
+    , path: undefined
+&nbsp;
+    // This defaults in cli-gh-cal
+    , first_day: undefined
+&nbsp;
+    // This defaults to *one year ago*
+    , since: undefined
+&nbsp;
+    // This defaults to *now*
+    , until: undefined
+&nbsp;
+    // Don't show authors by default
+    , authors: false
+&nbsp;
+    // No global activity by default
+    , global_activity: false
+};
+&nbsp;
+/**
+ * getConfig
+ * Fetches the configuration object from file (`~/.git-stats-config.js`).
+ *
+ * @name getConfig
+ * @function
+ * @param {Function} callback The callback function.
+ * @return {Object|Undefined} If no callback is provided, the configuration object will be returned.
+ */
+GitStats.prototype.getConfig = <span class="fstat-no" title="function not covered" >function (callback) {</span>
+<span class="cstat-no" title="statement not covered" >    var data = {},</span>
+        err = null;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    try {</span>
+<span class="cstat-no" title="statement not covered" >        data = require(CONFIG_PATH);</span>
+    } catch (err) {
+<span class="cstat-no" title="statement not covered" >        if (err.code === "MODULE_NOT_FOUND") {</span>
+<span class="cstat-no" title="statement not covered" >            err = null;</span>
+<span class="cstat-no" title="statement not covered" >            data = {};</span>
+        }
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if (callback) {</span>
+<span class="cstat-no" title="statement not covered" >        return callback(err, data);</span>
+    } else {
+<span class="cstat-no" title="statement not covered" >        if (err) {</span>
+<span class="cstat-no" title="statement not covered" >            throw err;</span>
+        }
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    return data;</span>
+};
+&nbsp;
+/**
+ * initConfig
+ * Inits the configuration field (`this.config`).
+ *
+ * @name initConfig
+ * @function
+ * @param {Object|String} input The path to a custom git-stats configuration file or the configuration object.
+ * @param {Function} callback The callback function.
+ */
+GitStats.prototype.initConfig = <span class="fstat-no" title="function not covered" >function (input, callback) {</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    var self = this;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if (Typpy(input, Function)) {</span>
+<span class="cstat-no" title="statement not covered" >        callback = input;</span>
+<span class="cstat-no" title="statement not covered" >        input = null;</span>
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    input = input || CONFIG_PATH;</span>
+&nbsp;
+    // Handle object input
+<span class="cstat-no" title="statement not covered" >    if (Typpy(input, Object)) {</span>
+<span class="cstat-no" title="statement not covered" >        this.config = Ul.deepMerge(input, GitStats.DEFAULT_CONFIG);</span>
+<span class="cstat-no" title="statement not covered" >        callback &amp;&amp; callback(null, this.config);</span>
+<span class="cstat-no" title="statement not covered" >        return this.config;</span>
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if (callback) {</span>
+<span class="cstat-no" title="statement not covered" >        this.getConfig(<span class="fstat-no" title="function not covered" >function (err, data) {</span></span>
+<span class="cstat-no" title="statement not covered" >            if (err) {</span>
+<span class="cstat-no" title="statement not covered" >                return callback(err);</span>
+            }
+<span class="cstat-no" title="statement not covered" >            self.initConfig(data, callback);</span>
+        });
+    } else {
+<span class="cstat-no" title="statement not covered" >        this.initConfig(this.getConfig());</span>
+    }
+};
+&nbsp;
+/**
+ * record
+ * Records a new commit.
+ *
+ * @name record
+ * @function
+ * @param {Object} data The commit data containing:
+ *
+ *  - `date` (String|Date): The date object or a string in a format that can be parsed.
+ *  - `url` (String): The repository remote url.
+ *  - `hash` (String): The commit hash.
+ *  - `_data` (Object): If this field is provided, it should be the content of the git-stats data file as object. It will be modified in-memory and then returned.
+ *  - `save` (Boolean): If `false`, the result will *not* be saved in the file.
+ *
+ * @param {Function} callback The callback function.
+ * @return {GitStats} The `GitStats` instance.
+ */
+GitStats.prototype.record = <span class="fstat-no" title="function not covered" >function (data, callback) {</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    var self = this;</span>
+&nbsp;
+    // Validate data
+<span class="cstat-no" title="statement not covered" >    callback = callback || <span class="fstat-no" title="function not covered" >function (err) {</span></span>
+<span class="cstat-no" title="statement not covered" >        if (err) <span class="cstat-no" title="statement not covered" >throw err;</span></span>
+    };
+<span class="cstat-no" title="statement not covered" >    data = Object(data);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if (typeof data.date === "string") {</span>
+<span class="cstat-no" title="statement not covered" >        data.date = new Moment(new Date(data.date));</span>
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if (!/^moment|date$/.test(Typpy(data.date))) {</span>
+<span class="cstat-no" title="statement not covered" >        callback(new Error("The date field should be a string or a date object."));</span>
+<span class="cstat-no" title="statement not covered" >        return GitStats;</span>
+    } else <span class="cstat-no" title="statement not covered" >if (Typpy(data.date, Date)) {</span>
+<span class="cstat-no" title="statement not covered" >        data.date = Moment(data.date);</span>
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if (typeof data.hash !== "string" || !data.hash) {</span>
+<span class="cstat-no" title="statement not covered" >        callback(new Error("Invalid hash."));</span>
+<span class="cstat-no" title="statement not covered" >        return GitStats;</span>
+    }
+&nbsp;
+    // This is not used, but remains here just in case we need
+    // it in the future
+<span class="cstat-no" title="statement not covered" >    if (typeof data.url !== "string" || !data.url) {</span>
+<span class="cstat-no" title="statement not covered" >        delete data.url;</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function modify(err, stats) {</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        var commits = stats.commits,</span>
+            day = data.date.format(DATE_FORMAT),
+            today = commits[day] = Object(commits[day]);
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        today[data.hash] = 1;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        if (data.save === false) {</span>
+<span class="cstat-no" title="statement not covered" >            callback(null, stats);</span>
+        } else {
+<span class="cstat-no" title="statement not covered" >            self.save(stats, callback);</span>
+        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        return stats;</span>
+    }
+&nbsp;
+    // Check if we have input data
+<span class="cstat-no" title="statement not covered" >    if (data._data) {</span>
+<span class="cstat-no" title="statement not covered" >        return modify(null, data._data);</span>
+    } else {
+        // Get stats
+<span class="cstat-no" title="statement not covered" >        self.get(modify);</span>
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    return self;</span>
+};
+&nbsp;
+/**
+ * removeCommit
+ * Deletes a specifc commit from the history.
+ *
+ * @name record
+ * @function
+ * @param {Object} data The commit data containing:
+ *
+ *  - `date` (String|Date): The date object or a string in a format that can be parsed. If not provided, the hash object will be searched in all dates.
+ *  - `hash` (String): The commit hash.
+ *  - `_data` (Object): If this field is provided, it should be the content of the git-stats data file as object. It will be modified in-memory and then returned.
+ *  - `save` (Boolean): If `false`, the result will *not* be saved in the file.
+ *
+ * @param {Function} callback The callback function.
+ * @return {GitStats} The `GitStats` instance.
+ */
+GitStats.prototype.removeCommit = <span class="fstat-no" title="function not covered" >function (data, callback) {</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    var self = this;</span>
+&nbsp;
+    // Validate data
+<span class="cstat-no" title="statement not covered" >    callback = callback || <span class="fstat-no" title="function not covered" >function (err) {</span></span>
+<span class="cstat-no" title="statement not covered" >        if (err) <span class="cstat-no" title="statement not covered" >throw err;</span></span>
+    };
+<span class="cstat-no" title="statement not covered" >    data = Object(data);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if (typeof data.date === "string") {</span>
+<span class="cstat-no" title="statement not covered" >        data.date = new Moment(new Date(data.date));</span>
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if (!/^moment|date$/.test(Typpy(data.date))) {</span>
+<span class="cstat-no" title="statement not covered" >        data.date = null;</span>
+    } else <span class="cstat-no" title="statement not covered" >if (Typpy(data.date, Date)) {</span>
+<span class="cstat-no" title="statement not covered" >        data.date = Moment(data.date);</span>
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if (typeof data.hash !== "string" || !data.hash) {</span>
+<span class="cstat-no" title="statement not covered" >        callback(new Error("Invalid hash."));</span>
+<span class="cstat-no" title="statement not covered" >        return GitStats;</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function modify(err, stats) {</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        if (err) {</span>
+<span class="cstat-no" title="statement not covered" >            return callback(err);</span>
+        }
+<span class="cstat-no" title="statement not covered" >        if (!data.date) {</span>
+<span class="cstat-no" title="statement not covered" >            IterateObject(stats.commits, <span class="fstat-no" title="function not covered" >function (todayObj) {</span></span>
+<span class="cstat-no" title="statement not covered" >                delete todayObj[data.hash];</span>
+            });
+        } else {
+<span class="cstat-no" title="statement not covered" >            var commits = stats.commits,</span>
+                day = data.date.format(DATE_FORMAT),
+                today = commits[day] = Object(commits[day]);
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            delete today[data.hash];</span>
+        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        if (data.save === false) {</span>
+<span class="cstat-no" title="statement not covered" >            callback(null, stats);</span>
+        } else {
+<span class="cstat-no" title="statement not covered" >            self.save(stats, callback);</span>
+        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        return stats;</span>
+    }
+&nbsp;
+    // Check if we have input data
+<span class="cstat-no" title="statement not covered" >    if (data._data) {</span>
+<span class="cstat-no" title="statement not covered" >        return modify(null, data._data);</span>
+    } else {
+        // Get stats
+<span class="cstat-no" title="statement not covered" >        self.get(modify);</span>
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    return self;</span>
+};
+&nbsp;
+/**
+ * get
+ * Gets the git stats.
+ *
+ * @name get
+ * @function
+ * @param {Function} callback The callback function.
+ * @return {GitStats} The `GitStats` instance.
+ */
+GitStats.prototype.get = <span class="fstat-no" title="function not covered" >function (callback) {</span>
+<span class="cstat-no" title="statement not covered" >    var self = this;</span>
+<span class="cstat-no" title="statement not covered" >    ReadJson(self.path, <span class="fstat-no" title="function not covered" >function (err, data) {</span></span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        if (err &amp;&amp; err.code === "ENOENT") {</span>
+<span class="cstat-no" title="statement not covered" >            return self.save(DEFAULT_DATA, <span class="fstat-no" title="function not covered" >function (err) {</span></span>
+<span class="cstat-no" title="statement not covered" >                callback(err, DEFAULT_DATA);</span>
+            });
+        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        if (err) {</span>
+<span class="cstat-no" title="statement not covered" >            return callback(err);</span>
+        }
+<span class="cstat-no" title="statement not covered" >        callback(null, data);</span>
+    });
+<span class="cstat-no" title="statement not covered" >    return self;</span>
+};
+&nbsp;
+/**
+ * save
+ * Saves the provided stats.
+ *
+ * @name save
+ * @function
+ * @param {Object} stats The stats to be saved.
+ * @param {Function} callback The callback function.
+ * @return {GitStats} The `GitStats` instance.
+ */
+GitStats.prototype.save = <span class="fstat-no" title="function not covered" >function (stats, callback) {</span>
+<span class="cstat-no" title="statement not covered" >    WriteJson(this.path, stats, callback);</span>
+<span class="cstat-no" title="statement not covered" >    return this;</span>
+};
+&nbsp;
+/**
+ * iterateDays
+ * Iterate through the days, calling the callback function on each day.
+ *
+ * @name iterateDays
+ * @function
+ * @param {Object} data An object containing the following fields:
+ *
+ *  - `start` (Moment): A `Moment` date object representing the start date (default: *an year ago*).
+ *  - `end` (Moment): A `Moment` date object representing the end date (default: *now*).
+ *  - `format` (String): The format of the date (default: `"MMM D, YYYY"`).
+ *
+ * @param {Function} callback The callback function called with the current day formatted (type: string) and the `Moment` date object.
+ * @return {GitStats} The `GitStats` instance.
+ */
+GitStats.prototype.iterateDays = <span class="fstat-no" title="function not covered" >function (data, callback) {</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if (typeof data === "function") {</span>
+<span class="cstat-no" title="statement not covered" >        callback = data;</span>
+<span class="cstat-no" title="statement not covered" >        data = undefined;</span>
+    }
+&nbsp;
+    // Merge the defaults
+<span class="cstat-no" title="statement not covered" >    data.end = data.end || Moment();</span>
+<span class="cstat-no" title="statement not covered" >    data.start = data.start || Moment().subtract(1, "years");</span>
+<span class="cstat-no" title="statement not covered" >    data.format = data.format || DATE_FORMAT;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    var start = new Moment(data.start.format(DATE_FORMAT), DATE_FORMAT),</span>
+        end = new Moment(data.end.format(DATE_FORMAT), DATE_FORMAT),
+        tomrrow = Moment(end.format(DATE_FORMAT), DATE_FORMAT).add(1, "days"),
+        endStr = tomrrow.format(DATE_FORMAT),
+        cDay = null;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    while (start.format(DATE_FORMAT) !== endStr) {</span>
+<span class="cstat-no" title="statement not covered" >        cDay = start.format(data.format);</span>
+<span class="cstat-no" title="statement not covered" >        callback(cDay, start);</span>
+<span class="cstat-no" title="statement not covered" >        start.add(1, "days");</span>
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    return this;</span>
+};
+&nbsp;
+/**
+ * graph
+ * Creates an object with the stats on the provided period (default: *last year*).
+ *
+ * @name graph
+ * @function
+ * @param {Object} data The object passed to the `iterateDays` method.
+ * @param {Function} callback The callback function.
+ * @return {GitStats} The `GitStats` instance.
+ */
+GitStats.prototype.graph = <span class="fstat-no" title="function not covered" >function (data, callback) {</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if (typeof data === "function") {</span>
+<span class="cstat-no" title="statement not covered" >        callback = data;</span>
+<span class="cstat-no" title="statement not covered" >        data = undefined;</span>
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    var self = this;</span>
+&nbsp;
+    // Get commits
+<span class="cstat-no" title="statement not covered" >    self.get(<span class="fstat-no" title="function not covered" >function (err, stats) {</span></span>
+<span class="cstat-no" title="statement not covered" >        if (err) {</span>
+<span class="cstat-no" title="statement not covered" >            return callback(err);</span>
+        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        var cDayObj = null,</span>
+            year = {};
+&nbsp;
+        // Iterate days
+<span class="cstat-no" title="statement not covered" >        self.iterateDays(data, <span class="fstat-no" title="function not covered" >function (cDay) {</span></span>
+<span class="cstat-no" title="statement not covered" >            cDayObj = Object(stats.commits[cDay]);</span>
+<span class="cstat-no" title="statement not covered" >            cDayObj = year[cDay] = {</span>
+                _: cDayObj,
+                c: Object.keys(cDayObj).length
+            };
+        });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        callback(null, year);</span>
+    });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    return self;</span>
+};
+&nbsp;
+/**
+ * calendar
+ * Creates the calendar data for the provided period (default: *last year*).
+ *
+ * @name calendar
+ * @function
+ * @param {Object} data The object passed to the `graph` method.
+ * @param {Function} callback The callback function.
+ * @return {GitStats} The `GitStats` instance.
+ */
+GitStats.prototype.calendar = <span class="fstat-no" title="function not covered" >function (data, callback) {</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    var self = this;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    self.graph(data, <span class="fstat-no" title="function not covered" >function (err, graph) {</span></span>
+<span class="cstat-no" title="statement not covered" >        if (err) {</span>
+<span class="cstat-no" title="statement not covered" >            return callback(err);</span>
+        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        var cal = { total: 0, days: {}, cStreak: 0, lStreak: 0, max: 0 },</span>
+            cDay = null,
+            days = Object.keys(graph),
+            levels = null,
+            cLevel = 0;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        days.forEach(<span class="fstat-no" title="function not covered" >function (c) {</span></span>
+<span class="cstat-no" title="statement not covered" >            cDay = graph[c];</span>
+<span class="cstat-no" title="statement not covered" >            cal.total += cDay.c;</span>
+<span class="cstat-no" title="statement not covered" >            if (cDay.c &gt; cal.max) {</span>
+<span class="cstat-no" title="statement not covered" >                cal.max = cDay.c;</span>
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            if (cDay.c &gt; 0) {</span>
+<span class="cstat-no" title="statement not covered" >                if (++cal.cStreak &gt; cal.lStreak) {</span>
+<span class="cstat-no" title="statement not covered" >                    cal.lStreak = cal.cStreak;</span>
+                }
+            } else {
+<span class="cstat-no" title="statement not covered" >                cal.cStreak = 0;</span>
+            }
+        });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        levels = cal.max / (LEVELS.length * 2);</span>
+<span class="cstat-no" title="statement not covered" >        days.forEach(<span class="fstat-no" title="function not covered" >function (c) {</span></span>
+<span class="cstat-no" title="statement not covered" >            cDay = graph[c];</span>
+<span class="cstat-no" title="statement not covered" >            cal.days[c] = {</span>
+                c: cDay.c,
+                level: !levels ? 0 : (cLevel = Math.round(cDay.c / levels)) &gt;= 4 ? 4 : !cLevel &amp;&amp; cDay.c &gt; 0 ? 1 : cLevel
+            };
+        });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        callback(null, cal);</span>
+    });
+<span class="cstat-no" title="statement not covered" >    return self;</span>
+};
+&nbsp;
+/**
+ * ansiCalendar
+ * Creates the ANSI contributions calendar.
+ *
+ * @name ansiCalendar
+ * @function
+ * @param {Object} options The object passed to the `calendar` method.
+ * @param {Function} callback The callback function.
+ * @return {GitStats} The `GitStats` instance.
+ */
+GitStats.prototype.ansiCalendar = <span class="fstat-no" title="function not covered" >function (options, callback) {</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if (typeof options === "function") {</span>
+<span class="cstat-no" title="statement not covered" >        callback = options;</span>
+<span class="cstat-no" title="statement not covered" >        options = undefined;</span>
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    var self = this;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    self.graph(options, <span class="fstat-no" title="function not covered" >function (err, graph) {</span></span>
+<span class="cstat-no" title="statement not covered" >        var cal = [],</span>
+            data = {
+            theme: options.theme,
+            start: options.start,
+            end: options.end,
+            firstDay: options.firstDay,
+            cal: cal,
+            raw: options.raw
+        };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        self.iterateDays(options, <span class="fstat-no" title="function not covered" >function (cDay) {</span></span>
+<span class="cstat-no" title="statement not covered" >            var cDayObj = graph[cDay];</span>
+<span class="cstat-no" title="statement not covered" >            if (!cDayObj) {</span>
+<span class="cstat-no" title="statement not covered" >                return;</span>
+            }
+<span class="cstat-no" title="statement not covered" >            cal.push([cDay, cDayObj.c]);</span>
+        });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        callback(null, CliGhCal(cal, data));</span>
+    });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    return self;</span>
+};
+&nbsp;
+/**
+ * authors
+ * Creates an array with the authors of a git repository.
+ *
+ * @name authors
+ * @function
+ * @param {String|Object} options The repo path or an object containing the following fields:
+ *
+ *  - `repo` (String): The repository path.
+ *
+ * @param {Function} callback The callback function.
+ * @return {GitStats} The `GitStats` instance.
+ */
+GitStats.prototype.authors = <span class="fstat-no" title="function not covered" >function (options, callback) {</span>
+<span class="cstat-no" title="statement not covered" >    var repo = new Gry(options.repo);</span>
+<span class="cstat-no" title="statement not covered" >    repo.exec("shortlog -s -n --all --since \"" + options.start.toString() + "\" --until \"" + options.end.toString() + "\"", <span class="fstat-no" title="function not covered" >function (err, stdout) {</span></span>
+<span class="cstat-no" title="statement not covered" >        if (err) {</span>
+<span class="cstat-no" title="statement not covered" >            return callback(err);</span>
+        }
+<span class="cstat-no" title="statement not covered" >        var lines = stdout.split("\n");</span>
+<span class="cstat-no" title="statement not covered" >        var pieData = stdout.split("\n").map(<span class="fstat-no" title="function not covered" >function (c) {</span></span>
+<span class="cstat-no" title="statement not covered" >            var splits = c.split("\t").map(<span class="fstat-no" title="function not covered" >function (cc) {</span></span>
+<span class="cstat-no" title="statement not covered" >                return cc.trim();</span>
+            });
+<span class="cstat-no" title="statement not covered" >            return {</span>
+                value: parseInt(splits[0]),
+                label: splits[1]
+            };
+        });
+<span class="cstat-no" title="statement not covered" >        callback(null, pieData);</span>
+    });
+<span class="cstat-no" title="statement not covered" >    return this;</span>
+};
+&nbsp;
+/**
+ * authorsPie
+ * Creates the authors pie.
+ *
+ * @name authorsPie
+ * @function
+ * @param {String|Object} options The repo path or an object containing the following fields:
+ *
+ *  - `repo` (String): The repository path.
+ *  - `radius` (Number): The pie radius.
+ *  - `no_ansi` (Boolean): If `true`, the pie will not contain ansi characters.
+ *  - `raw` (Boolean): If `true`, the raw JSON will be displayed.
+ *
+ * @param {Function} callback The callback function.
+ * @return {GitStats} The `GitStats` instance.
+ */
+GitStats.prototype.authorsPie = <span class="fstat-no" title="function not covered" >function (options, callback) {</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if (typeof options === "string") {</span>
+<span class="cstat-no" title="statement not covered" >        options = {</span>
+            repo: options
+        };
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    options = Ul.merge(options, {</span>
+        radius: process.stdout.rows / 2 || 20
+    });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if (!IsThere(options.repo)) {</span>
+<span class="cstat-no" title="statement not covered" >        return callback(new Error("The repository folder doesn't exist."));</span>
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    var self = this,</span>
+        repo = new Gry(options.repo),
+        pie = null,
+        pieData = [];
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    self.authors(options, <span class="fstat-no" title="function not covered" >function (err, authors) {</span></span>
+<span class="cstat-no" title="statement not covered" >        if (err) {</span>
+<span class="cstat-no" title="statement not covered" >            return callback(err);</span>
+        }
+<span class="cstat-no" title="statement not covered" >        if (authors.length &gt; 50) {</span>
+<span class="cstat-no" title="statement not covered" >            var others = {</span>
+                value: authors.slice(50).reduce(<span class="fstat-no" title="function not covered" >function (a, b) {</span>
+<span class="cstat-no" title="statement not covered" >                    return a + b.value;</span>
+                }, 0),
+                label: "Others"
+            };
+<span class="cstat-no" title="statement not covered" >            authors = authors.slice(0, 50);</span>
+<span class="cstat-no" title="statement not covered" >            authors.push(others);</span>
+        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        var data = {</span>
+            legend: true,
+            flat: true,
+            no_ansi: options.no_ansi,
+            authors: authors
+        };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        callback(null, options.raw ? data : new CliPie(options.radius, authors, data).toString());</span>
+    });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    return self;</span>
+};
+&nbsp;
+/**
+ * globalActivity
+ * Creates the global contributions calendar (all commits made by all committers).
+ *
+ * @name globalActivity
+ * @function
+ * @param {String|Object} options The repo path or an object containing the following fields:
+ *
+ *  - `repo` (String): The repository path.
+ *  - `start` (String): The start date.
+ *  - `end` (String): The end date.
+ *  - `theme` (String|Object): The calendar theme.
+ *  - `raw` (Boolean): If `true`, the raw JSON will be displayed.
+ *
+ * @param {Function} callback The callback function.
+ * @return {GitStats} The `GitStats` instance.
+ */
+GitStats.prototype.globalActivity = <span class="fstat-no" title="function not covered" >function (options, callback) {</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if (typeof options === "string") {</span>
+<span class="cstat-no" title="statement not covered" >        options = {</span>
+            repo: options
+        };
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    options.repo = Abs(options.repo);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if (!IsThere(options.repo)) {</span>
+<span class="cstat-no" title="statement not covered" >        return callback(new Error("The repository folder doesn't exist."));</span>
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    var commits = {},</span>
+        today = null,
+        cal = [];
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    GitLogParser(Spawn("git", ["log", "--since", options.start.format(DATE_FORMAT), "--until", options.end.format(DATE_FORMAT)], { cwd: options.repo }).stdout).on("commit", <span class="fstat-no" title="function not covered" >function (commit) {</span></span>
+<span class="cstat-no" title="statement not covered" >        if (!commit) {</span>
+<span class="cstat-no" title="statement not covered" >            return;</span>
+        }
+<span class="cstat-no" title="statement not covered" >        today = Moment(commit.date).format(DATE_FORMAT);</span>
+<span class="cstat-no" title="statement not covered" >        commits[today] = commits[today] || 0;</span>
+<span class="cstat-no" title="statement not covered" >        ++commits[today];</span>
+    }).on("error", <span class="fstat-no" title="function not covered" >function (err) {</span>
+<span class="cstat-no" title="statement not covered" >        callback(err);</span>
+    }).on("finish", <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >        Object.keys(commits).forEach(<span class="fstat-no" title="function not covered" >function (c) {</span></span>
+<span class="cstat-no" title="statement not covered" >            cal.push([c, commits[c]]);</span>
+        });
+<span class="cstat-no" title="statement not covered" >        var data = {</span>
+            theme: options.theme,
+            start: options.start,
+            end: options.end,
+            cal: cal,
+            raw: options.raw
+        };
+<span class="cstat-no" title="statement not covered" >        callback(null, CliGhCal(cal, data));</span>
+    });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    return this;</span>
+};
+&nbsp;
+module.exports = GitStats;
+&nbsp;</pre></td></tr>
+</table></pre>
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a> at Sat Apr 22 2017 13:08:11 GMT+0000 (UTC)</div>
+</div>
+</body>
+</html>
